@@ -1,19 +1,31 @@
+import os
 from datetime import date
 
 from .models import Guest, Reservation, Room
 from .service import HotelService
 
 ADMIN_PASSWORD = "admin123"
+BANNER = """
+░█░█░█▀█░▀█▀░█▀▀░█░░░░░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▄█░█▀▀░█▀█░▀█▀░░░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█
+░█▀█░█░█░░█░░█▀▀░█░░░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█░█░█▀▀░█░█░░█░░░░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█
+░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░░░░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀
+"""
+
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+
+def pause():
+    input("\nPress Enter to continue...")
 
 
 def main():
     service = HotelService()
     service.seed_sample_data()
-    print("""
-░█░█░█▀█░▀█▀░█▀▀░█░░░░░█▄█░█▀█░█▀█░█▀█░█▀▀░█▀▀░█▄█░█▀▀░█▀█░▀█▀░░░█▀▀░█░█░█▀▀░▀█▀░█▀▀░█▄█
-░█▀█░█░█░░█░░█▀▀░█░░░░░█░█░█▀█░█░█░█▀█░█░█░█▀▀░█░█░█▀▀░█░█░░█░░░░▀▀█░░█░░▀▀█░░█░░█▀▀░█░█
-░▀░▀░▀▀▀░░▀░░▀▀▀░▀▀▀░░░▀░▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░░▀░░░░▀▀▀░░▀░░▀▀▀░░▀░░▀▀▀░▀░▀""")
     while True:
+        clear_screen()
+        print(BANNER)
         print("\n==== Hotel Management ====")
         print("1. Admin")
         print("2. Guest")
@@ -26,23 +38,28 @@ def main():
         elif choice == "2":
             guest_menu(service)
         elif choice == "0":
+            clear_screen()
             print("Goodbye!")
             break
         else:
             print("Invalid option. Try again.")
+            pause()
 
 
 def authenticate_admin():
+    clear_screen()
     password = input("Enter admin password: ").strip()
     if password == ADMIN_PASSWORD:
         return True
     print("Incorrect password.")
+    pause()
     return False
 
 
 def admin_menu(service):
     while True:
-        print("\n---- Admin Menu ----")
+        clear_screen()
+        print("---- Admin Menu ----")
         print("1. View rooms")
         print("2. Add room")
         print("3. View reservations")
@@ -52,24 +69,36 @@ def admin_menu(service):
         choice = input("Choose an option: ").strip()
 
         if choice == "1":
+            clear_screen()
             show_rooms(service.list_rooms())
+            pause()
         elif choice == "2":
+            clear_screen()
             add_room_flow(service)
+            pause()
         elif choice == "3":
+            clear_screen()
             show_reservations(service.list_reservations())
+            pause()
         elif choice == "4":
+            clear_screen()
             update_reservation_status(service, "complete")
+            pause()
         elif choice == "5":
+            clear_screen()
             update_reservation_status(service, "cancel")
+            pause()
         elif choice == "0":
             break
         else:
             print("Invalid option.")
+            pause()
 
 
 def guest_menu(service):
     while True:
-        print("\n---- Guest Menu ----")
+        clear_screen()
+        print("---- Guest Menu ----")
         print("1. Register")
         print("2. View available rooms")
         print("3. Book room")
@@ -79,19 +108,30 @@ def guest_menu(service):
         choice = input("Choose an option: ").strip()
 
         if choice == "1":
+            clear_screen()
             register_guest_flow(service)
+            pause()
         elif choice == "2":
+            clear_screen()
             show_rooms(service.list_available_rooms())
+            pause()
         elif choice == "3":
+            clear_screen()
             book_room_flow(service)
+            pause()
         elif choice == "4":
+            clear_screen()
             show_guest_reservations(service)
+            pause()
         elif choice == "5":
+            clear_screen()
             cancel_guest_reservation(service)
+            pause()
         elif choice == "0":
             break
         else:
             print("Invalid option.")
+            pause()
 
 
 def add_room_flow(service):
