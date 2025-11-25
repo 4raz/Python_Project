@@ -269,7 +269,7 @@ def display_rooms(room_list):
     print(f"{'ID':<10} | {'Type':<10} | {'Rate':<10} | {'Available':<10}")
     print("-" * 50)
     for room in room_list:
-        print(f"{room.room_id:<10} | {room.room_type:<10} | ₹{room.rate:<9.2f} | {"yes" if room.is_available else "no":<10}")
+        print(f"{room.room_id:<10} | {room.room_type:<10} | ₹{room.rate:<9.2f} | {'yes' if room.is_available else 'no':<10}")
 
 def display_reserv(res_list):
     if not res_list:
