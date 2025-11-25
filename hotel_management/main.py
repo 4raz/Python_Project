@@ -25,8 +25,8 @@ def main():
     while 1:
         clear()
         print(hms)
-        print("1. Log in as Admin")
-        print("2. Log in as guest")
+        print("1. Login as Admin")
+        print("2. Login as Guest")
         print("0. Exit")
         
         choice = input("\nSelect Option >>> ").strip()
@@ -96,12 +96,12 @@ def gmenu(service):
     while True:
         clear()
         print("\n" + "="*10 + " GUEST MENU " + "="*10)
-        print("0.Main menu")
         print("1.Register/Signup")
         print("2.Check availability")
         print("3.Book room")
-        print("4.My bookings")
+        print("4.Show bookings")
         print("5.Cancel my booking")
+        print("0.Main menu")
         
         opt = input(">>> ").strip()
 
