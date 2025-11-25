@@ -2,10 +2,10 @@
 
 import os
 
-PACKAGE_DIR = os.path.dirname(os.path.abspath(__file__))
-BASE_DIR = os.path.dirname(PACKAGE_DIR)
-DATA_DIR = os.path.join(BASE_DIR, "data")
+PACKAGE_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
+BASE_DIRECTORY = os.path.dirname(PACKAGE_DIRECTORY)
+DATA_DIRECTORY = os.path.join(BASE_DIRECTORY, "data")
 
-GUESTS_CSV = os.path.join(DATA_DIR, "guests.csv")
-ROOMS_CSV = os.path.join(DATA_DIR, "rooms.csv")
-RESERVATIONS_CSV = os.path.join(DATA_DIR, "reservations.csv")
+GUESTS_CSV = os.path.join(DATA_DIRECTORY, "guests.csv")
+ROOMS_CSV = os.path.join(DATA_DIRECTORY, "rooms.csv")
+RESERVATIONS_CSV = os.path.join(DATA_DIRECTORY, "reservations.csv")

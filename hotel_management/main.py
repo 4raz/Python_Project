@@ -22,7 +22,6 @@ def pause():
 
 def main():
     service = HotelService()
-    service.seed_sample_data()
     while True:
         clear_screen()
         print(BANNER)

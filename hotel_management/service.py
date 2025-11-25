@@ -3,13 +3,13 @@ from .models import Guest, Reservation, Room
 from .repository import CSVRepository
 
 
-def _guest_repo():
+def _guest_repository():
     return CSVRepository(
         settings.GUESTS_CSV, ["guest_id", "full_name", "email"], Guest.from_dict
     )
 
 
-def _room_repo():
+def _room_repository():
     return CSVRepository(
         settings.ROOMS_CSV,
         ["room_id", "room_type", "rate", "is_available"],
@@ -17,7 +17,7 @@ def _room_repo():
     )
 
 
-def _reservation_repo():
+def _reservation_repository():
     return CSVRepository(
         settings.RESERVATIONS_CSV,
         ["reservation_id", "guest_id", "room_id", "check_in", "check_out", "status"],
@@ -29,9 +29,9 @@ class HotelService:
     """High-level hotel operations."""
 
     def __init__(self):
-        self.guests = _guest_repo()
-        self.rooms = _room_repo()
-        self.reservations = _reservation_repo()
+        self.guests = _guest_repository()
+        self.rooms = _room_repository()
+        self.reservations = _reservation_repository()
 
     def list_rooms(self):
         return self.rooms.list_all()
@@ -124,53 +124,23 @@ class HotelService:
                 break
         self.rooms.save_all(rooms)
 
-    def register_guest(self, guest):
+    def register_guest(self, new_guest):
         guests = self.guests.list_all()
-        if any(existing.guest_id == guest.guest_id for existing in guests):
-            raise ValueError("Guest already exists")
-        guests.append(guest)
+        for existing in guests:
+            if existing.guest_id == new_guest.guest_id:
+                raise ValueError("Guest already exists")
+        guests.append(new_guest)
         self.guests.save_all(guests)
-        return guest
+        return new_guest
 
-    def add_room(self, room):
+    def add_room(self, new_room):
         rooms = self.rooms.list_all()
-        if any(existing.room_id == room.room_id for existing in rooms):
-            raise ValueError("Room already exists")
-        rooms.append(room)
+        for existing_room in rooms:
+            if existing_room.room_id == new_room.room_id:
+                raise ValueError("Room already exists")
+        rooms.append(new_room)
         self.rooms.save_all(rooms)
-        return room
-
-    def set_room_availability(self, room_id, is_available):
-        rooms = self.rooms.list_all()
-        found = False
-        normalized = str(is_available).strip().lower()
-        flag = normalized in ("1", "true", "yes", "available")
-        for room in rooms:
-            if room.room_id == room_id:
-                room.is_available = flag
-                found = True
-                break
-        if not found:
-            raise ValueError("Room not found")
-        self.rooms.save_all(rooms)
+        return new_room
 
     def get_guest_reservations(self, guest_id):
         return [res for res in self.reservations.list_all() if res.guest_id == guest_id]
-
-    def seed_sample_data(self):
-        if not self.guests.list_all():
-            self.guests.save_all(
-                [
-                    Guest("G001", "Ariana Reed", "ariana@example.com"),
-                    Guest("G002", "Bao Tran", "bao@example.com"),
-                ]
-            )
-        if not self.rooms.list_all():
-            self.rooms.save_all(
-                [
-                    Room("R101", "Deluxe", 120.0, True),
-                    Room("R102", "Suite", 200.0, True),
-                ]
-            )
-        if not self.reservations.list_all():
-            self.reservations.save_all([])
