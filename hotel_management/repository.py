@@ -1,12 +1,8 @@
-"""CSV-based repositories for hotel entities."""
-
 import csv
 import os
 
 
 class CSVRepository:
-    """Simple CSV repository with basic CSV read/write helpers."""
-
     def __init__(self, csv_path, headers, factory):
         self.csv_path = csv_path
         self.headers = list(headers)
