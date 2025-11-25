@@ -1,6 +1,3 @@
 room_id,room_type,rate,is_available
 R101,Deluxe,120.00,1
 R102,Suite,200.00,1
-R103,Classroom,-100.00,1
-R104,Library,1999.00,1
-R105,Library,100.00,0
