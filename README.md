@@ -15,19 +15,11 @@
    - `main.py` provides a menu-driven CLI with separate Admin and Guest flows.
    - Admin password defaults to `admin123`; adjust `ADMIN_PASSWORD` in `main.py` if needed.
 
-## Work Breakdown (Three Parallel Tracks)
+## Work Breakdown
 
-1. **Domain & Validation**
-   - Flesh out models, add richer validation, capacity rules, and helpers for CSV serialization.
-   - Extend unit tests for model behaviors.
-2. **Persistence & Data Management**
-   - Implement CRUD operations in repositories, add locking/concurrency handling, and reporting exports.
-   - Populate sample CSV data and data-migration utilities.
-3. **Service Layer & Interface**
-   - Expand `HotelService` flows (search, booking lifecycle, billing hooks).
-   - Build CLI menus or a minimal FastAPI/Flask interface.
-
-Each part can be owned independently with well-defined interfaces between layers.
+- Bhaskar Kumar Arya: Modeled the core `Guest`, `Room`, and `Reservation` classes and kept the CSV serialization helpers simple.
+- Muhammad Raza Khan: Set up the CSV files and the small repository helper that reads/writes them, filled in the sample data, and kept the service layer hooked up so bookings, cancellations, and room availability always reflect what’s stored on disk.
+- Surya Kiran Basava: Implemented the menu-driven CLI, covering both admin and guest flows plus booking/cancellation interactions. Also added ASCII art.
 
 ## Getting Started
 
@@ -38,4 +30,3 @@ python -m hotel_management.main
 - Admin options: view/add rooms, inspect reservations, cancel or complete stays.
 - Guest options: self-register, view availability, book rooms, review or cancel reservations.
 - Update the CSV paths in `hotel_management/settings.py` if you relocate the `data/` folder.
-- Add tests under `tests/` when you begin feature work.
