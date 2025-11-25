@@ -1,5 +1,3 @@
-"""Menu-driven CLI for the hotel management system."""
-
 from datetime import date
 
 from .models import Guest, Reservation, Room

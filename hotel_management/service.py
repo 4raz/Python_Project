@@ -1,5 +1,3 @@
-"""Business workflows coordinating repositories."""
-
 from . import settings
 from .models import Guest, Reservation, Room
 from .repository import CSVRepository

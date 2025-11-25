@@ -1,5 +1,3 @@
-"""Domain models for the hotel management system."""
-
 from datetime import date
 
 
